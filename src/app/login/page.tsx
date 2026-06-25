@@ -29,24 +29,6 @@ export default function LoginPage() {
     }
   }, [status, router]);
 
-  useEffect(() => {
-  const error = searchParams.get('error');
-
-  if (!error) return;
-
-  if (error === 'ROLE_MISMATCH') {
-    toast.error("Access denied", {
-      description: "You're not authorized as this role.",
-    });
-  }
-  else if(error === 'ACCESS_DENIED'  ){
-    toast.error("Access denied", {
-      description: "You don't have permission to access this resource.",
-    });
-  }
-
-  window.history.replaceState({}, '', '/login');
-}, [searchParams]);
 
   if (status === 'loading') {
     return (
