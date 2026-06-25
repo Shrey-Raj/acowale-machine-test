@@ -1,4 +1,4 @@
-# Acowale CRM – Machine Test
+# Acowale  – Machine Test
 
 A lightweight customer feedback platform with admin dashboard, built for the Acowale hiring challenge.
 
@@ -77,6 +77,51 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/acowa
 
 > **Note:** You can copy `.env.example` (included in repo) and fill in your values.
 
+---
+
+## 🔑 Setting Up Google OAuth
+
+To enable Google sign‑in, you need to create OAuth 2.0 credentials in the Google Cloud Console.
+
+### Step 1: Create a Project
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+2. Click the project dropdown (top‑left) and select **New Project**.
+3. Give it a name (e.g., "Acowale") and click **Create**.
+
+### Step 2: Enable the OAuth Consent Screen
+1. In the left menu, navigate to **APIs & Services** → **OAuth consent screen**.
+2. Choose **External** (or **Internal** if you're using a Google Workspace domain) and click **Create**.
+3. Fill in:
+   - **App name:** `Acowale `
+   - **User support email:** your email
+   - **Developer contact information:** your email
+4. Click **Save and Continue** (you can skip adding scopes for now).
+5. Add test users if needed (e.g., your own email), then click **Save and Continue** → **Back to Dashboard**.
+
+### Step 3: Create OAuth 2.0 Credentials
+1. Go to **APIs & Services** → **Credentials**.
+2. Click **+ Create Credentials** → **OAuth client ID**.
+3. Choose **Application type:** `Web application`.
+4. Give it a name (e.g., "Acowale  Web").
+5. Under **Authorized redirect URIs**, add:
+   - **Development:** `http://localhost:3000/api/auth/callback/google`
+   - **Production:** `https://your-domain.com/api/auth/callback/google` (replace with your actual domain)
+6. Click **Create**.
+7. Copy the **Client ID** and **Client Secret** – you'll need them in your `.env.local` file.
+
+### Step 4: Add Credentials to Your Environment
+Paste the values into your `.env.local`:
+
+```env
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+```
+
+> **Important:** Never commit these secrets to version control. The `.env.local` file is already ignored by Git (ensure it's listed in `.gitignore`).
+
+---
+
+
 ### Installation
 
 ```bash
@@ -131,10 +176,6 @@ src/
 | GET | `/api/admin/fetch-analytics-summary` | Get dashboard summary stats | Admin |
 
 All admin routes require a valid session with `role: "admin"`. Unauthorized requests receive `401`.
-
----
-
-We'll add a dedicated **API Data Models** section to the README, explaining the expected request/response structures with validation rules.
 
 ---
 
