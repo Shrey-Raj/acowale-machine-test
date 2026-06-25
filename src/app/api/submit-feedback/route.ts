@@ -4,8 +4,14 @@ import { Feedback } from '@/models/Feedback';
 import { feedbackSchema } from '@/lib/validations/feedback';
 import { withErrorHandler } from '@/lib/api-handler';
 import { ValidationError } from '@/lib/api-error';
+import { apiLimiter } from "@/lib/rate-limit";
+import { applyRateLimit } from "@/lib/apply-rate-limit";
+
 
 export const POST = withErrorHandler(async (req: NextRequest) => {
+  const rateLimitResponse = await applyRateLimit(req, apiLimiter);
+  if (rateLimitResponse) return rateLimitResponse;
+
   const body = await req.json();
 
   const result = feedbackSchema.safeParse(body);

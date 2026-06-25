@@ -66,7 +66,7 @@ export function FeedbackForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit feedback");
+        throw new Error(data.message || "Failed to submit feedback");
       }
 
       toast.success("Feedback submitted!", {
