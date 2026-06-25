@@ -199,6 +199,8 @@ All admin routes require a valid session with `role: "admin"`. Unauthorized requ
 | `comments` | `string` | ✅ Yes   | Min 1 character, max 1000 characters |
 | `email`    | `string` | ❌ No    | Optional; must be a valid email format if provided, or empty string |
 
+> **Important:** This api is rate limited for 50 requests per minute.
+
 **Example Request:**
 
 ```json
