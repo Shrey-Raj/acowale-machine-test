@@ -13,6 +13,7 @@ A lightweight customer feedback platform with admin dashboard, built for the Aco
 This application allows users to submit feedback via a public form and enables admins to view aggregated analytics, filter submissions, and manage feedback. It includes:
 
 - Public feedback submission (name, email, category, comments)
+- Rate-limited public feedback endpoint (50 req/min) using Upstash Redis
 - Admin dashboard with total counts, category distribution, historical trends, and a full feedback table with search, filter, and sort(newest/oldest, category-wise, date-range)
 - Authentication via Google OAuth with role selection (Admin/User)
 - Secure API routes with global error handling
@@ -27,6 +28,7 @@ Built with **Next.js App Router, MongoDB, Tailwind CSS, shadcn UI, and NextAuth.
 - ✅ **Admin Dashboard** – view total feedback, users, growth rate, monthly trends, category breakdown.
 - ✅ **Feedback Table** – search, filter by category/date, sort by newest/oldest, pagination.
 - ✅ **Authentication** – Google OAuth sign-in, role selection (Admin/User).
+- ✅ **Rate Limiting** – public feedback endpoint protected by Upstash Redis (50 requests/min).
 - ✅ **Role‑Based Access** – only admins can view the dashboard and analytics.
 - ✅ **Global Error Handling** – consistent API error responses and client‑side toasts.
 - ✅ **Production Ready** – environment variables, health check, logging.
@@ -45,6 +47,7 @@ Built with **Next.js App Router, MongoDB, Tailwind CSS, shadcn UI, and NextAuth.
 | **Styling**       | Tailwind CSS + shadcn/ui |
 | **State**         | React Context API |
 | **Validation**    | Zod |
+| **Rate limiting** | Upstash Redis |
 | **Deployment**    | Vercel |
 | **Proxy (Middleware)** | Next.js proxy (formerly middleware) |
 
@@ -57,6 +60,7 @@ Built with **Next.js App Router, MongoDB, Tailwind CSS, shadcn UI, and NextAuth.
 - Node.js (v18+)
 - MongoDB Atlas account or local MongoDB instance
 - Google OAuth credentials (Client ID & Secret)
+- Upstash Redis account for rate limiting
 
 ### Environment Variables
 
@@ -73,6 +77,10 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 
 # MongoDB
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/acowale_crm?retryWrites=true&w=majority
+
+# Upstash Redis
+UPSTASH_REDIS_REST_URL=your-upstash-redis-url
+UPSTASH_REDIS_REST_TOKEN=your-upstash-redis-token
 ```
 
 > **Note:** You can copy `.env.example` (included in repo) and fill in your values.
