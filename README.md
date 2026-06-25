@@ -2,8 +2,8 @@
 
 A lightweight customer feedback platform with admin dashboard, built for the Acowale hiring challenge.
 
-**Live Demo:** [Add your URL here]  
-**Demo Video:** [Add YouTube/Video link here]  
+**Live Demo:** [https://acowale-machine-test.vercel.app]  
+**Demo Video:** [https://youtu.be/nZU9RA5SYhk]  
 **Repository:** [https://github.com/Shrey-Raj/acowale-machine-test]
 
 ---
