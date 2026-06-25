@@ -1,65 +1,67 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Layers } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function LandingPage() {
+  const session = await getServerSession(authOptions);
+  
+  if (session) {
+      redirect('/dashboard');
+    }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex flex-col min-h-screen bg-[#020617] text-[#f8fafc]">
+      
+      <header className="px-6 h-16 flex items-center border-b border-[#1e293b] bg-[#020617]/50 backdrop-blur-md sticky top-0 z-50">
+        <Link className="flex items-center space-x-2" href="#">
+          <Layers className="h-5 w-5 text-[#818cf8]" />
+          <span className="font-bold tracking-tight text-xl text-[#f1f5f9]">
+            acowale
+          </span>
+        </Link>
+        <nav className="ml-auto">
+          <Link href="/login">
+            <Button variant="outline" className="border-[#334155] bg-transparent text-[#e2e8f0] hover:bg-[#1e293b] hover:text-white">
+              Sign In
+            </Button>
+          </Link>
+        </nav>
+      </header>
+
+      <main className="flex-1 flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#4f46e5]/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-2xl text-center space-y-6 relative z-10">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
+            Welcome to{" "}
+            <span className="bg-linear-to-r from-[#818cf8] via-[#38bdf8] to-[#fcd34d] bg-clip-text text-transparent">
+              acowale
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-[#94a3b8] text-base md:text-lg max-w-md mx-auto leading-relaxed">
+            A secure, modern workspace built for lightning-fast performance and seamless collaboration.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+          <div className="pt-4">
+            <Link href="/login">
+              <Button className="px-8 py-6 text-md bg-gradient-to-r from-[#4f46e5] to-[#0284c7] hover:from-[#4338ca] hover:to-[#0369a1] text-white font-medium shadow-lg shadow-[#4f46e5]/20 transition-all transform hover:-translate-y-0.5 group border-0">
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </main>
+
+      <footer className="w-full py-4 border-t border-[#1e293b] text-center text-xs text-[#64748b]">
+        <p>© 2026 acowale. All rights reserved.</p>
+      </footer>
+
     </div>
   );
 }
